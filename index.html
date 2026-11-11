@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Video Downloader Without Watermark - Free & HD MP4</title>
+    <meta name="description" content="Download TikTok videos without watermark in HD quality for free. Fast, easy, and works on Mobile, PC, and Tablet without installing any apps.">
+    <meta name="keywords" content="tiktok downloader, tiktok video downloader without watermark, download tik tok videos, ttsave, tiktok mp3 download">
+    
+    <!-- Open Graph / Social Sharing Meta Tags for Better Reach -->
+    <meta property="og:title" content="TikTok Video Downloader Without Watermark - TikSave">
+    <meta property="og:description" content="Download TikTok videos without watermark instantly for free. Fast, high-quality MP4 downloads.">
+    <meta property="og:type" content="website">
+
+    <!-- Schema.org Structured Data for Google SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TikSave TikTok Downloader",
+      "url": "https://yourdomain.com",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browser": "Requires JavaScript. Works in all modern browsers.",
+      "description": "Free online tool to download TikTok videos without watermark and extract MP3 audio instantly."
+    }
+    </script>
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f17;
+            --card-bg: #131926;
+            --card-border: #1f293d;
+            --primary-yellow: #facc15;
+            --primary-yellow-hover: #eab308;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Header Navigation */
+        header {
+            background: rgba(19, 25, 38, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            padding: 18px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-yellow);
+        }
+
+        .logo i {
+            color: var(--primary-yellow);
+            font-size: 1.6rem;
+        }
+
+        /* Container & Grid */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--primary-yellow);
+            background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Search Input Box */
+        .downloader-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 10px;
+            border-radius: 16px;
+            display: flex;
+            gap: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-bottom: 25px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .downloader-box input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .downloader-box input::placeholder {
+            color: #64748b;
+        }
+
+        .btn-download {
+            background: var(--primary-yellow);
+            color: #000;
+            font-weight: 700;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-download:hover {
+            background: var(--primary-yellow-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.3);
+        }
+
+        .btn-download:active {
+            transform: translateY(0);
+        }
+
+        /* Ad Placement Area Example */
+        .ad-banner-placeholder {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--card-border);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin: 20px 0;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid var(--card-border);
+            border-top: 4px solid var(--primary-yellow);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Error Alert */
+        .error-msg {
+            display: none;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Result Section */
+        .result-card {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 25px;
+            gap: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .result-card {
+                display: none;
+                grid-template-columns: 280px 1fr;
+            }
+        }
+
+        .video-preview {
+            width: 100%;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            position: relative;
+        }
+
+        .video-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .author-info img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-yellow);
+        }
+
+        .author-details h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .author-details p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .video-title {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-item i {
+            color: var(--primary-yellow);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-no-wm {
+            background: var(--primary-yellow);
+            color: #000;
+        }
+
+        .btn-no-wm:hover {
+            background: var(--primary-yellow-hover);
+        }
+
+        .btn-audio {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-audio:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* SEO Features / Instructions Section */
+        .info-section {
+            margin-top: 60px;
+            border-top: 1px solid var(--card-border);
+            padding-top: 40px;
+        }
+
+        .info-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .feature-box i {
+            font-size: 2.2rem;
+            color: var(--primary-yellow);
+            margin-bottom: 15px;
+        }
+
+        .feature-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--card-border);
+            text-align: center;
+            padding: 25px 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <i class="fa-brands fa-tiktok"></i>
+            Tik<span>Save</span>
+        </a>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container">
+        <div class="hero">
+            <h1>Download TikTok Video <span>Without Watermark</span></h1>
+            <p>Fast, Free, HD Quality TikTok Video & MP3 Audio Downloader</p>
+        </div>
+
+        <!-- Downloader Input Box -->
+        <div class="downloader-box">
+            <div class="input-wrapper">
+                <i class="fa-solid fa-link"></i>
+                <input type="text" id="tiktokUrl" placeholder="Paste TikTok video link here..." autocomplete="off">
+            </div>
+            <button class="btn-download" onclick="fetchTikTokData()">
+                <i class="fa-solid fa-download"></i> Download
+            </button>
+        </div>
+
+        <!-- Ad Slot 1 -->
+        <div class="ad-banner-placeholder">
+            <i class="fa-solid fa-rectangle-ad"></i> Advertisement Banner Slot
+        </div>
+
+        <!-- Error Alert -->
+        <div class="error-msg" id="errorMsg">
+            Invalid TikTok URL or network issue. Please try again with a valid link!
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p style="color: var(--text-muted);">Fetching video details...</p>
+        </div>
+
+        <!-- Result Display Card -->
+        <div class="result-card" id="resultCard">
+            <div class="video-preview">
+                <img id="videoCover" src="" alt="Video Preview">
+            </div>
+            <div class="video-info">
+                <div class="author-info">
+                    <img id="authorAvatar" src="" alt="Author Avatar">
+                    <div class="author-details">
+                        <h3 id="authorName">Creator</h3>
+                        <p id="authorHandle">@handle</p>
+                    </div>
+                </div>
+
+                <div class="video-title" id="videoTitle">
+                    TikTok video description will appear here...
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fa-solid fa-play"></i> <span id="viewsCount">0</span> Views
+                    </div>
+                    <div class="stat-item">
+                        <i class="fa-solid fa-heart"></i> <span id="likesCount">0</span> Likes
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <a id="downloadNoWm" href="#" class="btn-action btn-no-wm" target="_blank" download>
+                        <i class="fa-solid fa-file-video"></i> Download MP4 (No Watermark)
+                    </a>
+                    <a id="downloadAudio" href="#" class="btn-action btn-audio" target="_blank" download>
+                        <i class="fa-solid fa-music"></i> Download Audio (MP3)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Content Section: Essential for Google Bots to Read Text -->
+        <div class="info-section">
+            <h2>How to Download TikTok Videos Without Watermark?</h2>
+            <p style="color: var(--text-muted); text-align: center; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                Using our free online tool, you can easily save your favorite TikTok clips to your mobile phone, tablet, or computer without any logo or watermark overlay. Just copy the video link, paste it into the search box above, and hit download!
+            </p>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <i class="fa-solid fa-ban"></i>
+                    <h3>No Watermark</h3>
+                    <p>Get clean TikTok videos without any logo or watermark in original full HD quality.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fa-solid fa-bolt"></i>
+                    <h3>Ultra Fast Speed</h3>
+                    <p>High-speed processing engine allows you to save videos within seconds directly to your device.</p>
+                </div>
+                <div class="feature-box">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                    <h3>Works Everywhere</h3>
+                    <p>Supports all devices including iOS, Android, Windows, Mac, and Tablets without installing apps.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 TikSave. All rights reserved. Free TikTok Video Downloader.</p>
+    </footer>
+
+    <!-- Logic JavaScript -->
+    <script>
+        async function fetchTikTokData() {
+            const urlInput = document.getElementById('tiktokUrl').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const resultCard = document.getElementById('resultCard');
+
+            errorMsg.style.display = 'none';
+            resultCard.style.display = 'none';
+
+            if (!urlInput || (!urlInput.includes('tiktok.com') && !urlInput.includes('vt.tiktok.com'))) {
+                showError('Please paste a valid TikTok link (e.g. https://www.tiktok.com/@user/video/1234...)');
+                return;
+            }
+
+            loadingSpinner.style.display = 'block';
+
+            try {
+                const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(urlInput)}`;
+                const response = await fetch(apiUrl);
+                const result = await response.json();
+
+                loadingSpinner.style.display = 'none';
+
+                if (result.code === 0 && result.data) {
+                    const data = result.data;
+
+                    document.getElementById('videoCover').src = data.cover || data.origin_cover;
+                    document.getElementById('authorAvatar').src = data.author.avatar;
+                    document.getElementById('authorName').innerText = data.author.nickname || 'TikTok User';
+                    document.getElementById('authorHandle').innerText = `@${data.author.unique_id || 'user'}`;
+                    document.getElementById('videoTitle').innerText = data.title || 'No caption available.';
+                    
+                    document.getElementById('viewsCount').innerText = formatNumber(data.play_count || 0);
+                    document.getElementById('likesCount').innerText = formatNumber(data.digg_count || 0);
+
+                    document.getElementById('downloadNoWm').href = data.play;
+                    document.getElementById('downloadAudio').href = data.music;
+
+                    resultCard.style.display = window.innerWidth >= 768 ? 'grid' : 'flex';
+                    resultCard.style.flexDirection = 'column';
+                } else {
+                    showError(result.msg || 'Unable to fetch video. The video might be private or deleted.');
+                }
+            } catch (err) {
+                loadingSpinner.style.display = 'none';
+                showError('Network error or API limit reached. Please check your connection and try again.');
+            }
+        }
+
+        function showError(msg) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.innerText = msg;
+            errorMsg.style.display = 'block';
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(1) + 'M';
+            }
+            if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return num;
+        }
+
+        document.getElementById('tiktokUrl').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                fetchTikTokData();
+            }
+        });
+    </script>
+</body>
+</html>
