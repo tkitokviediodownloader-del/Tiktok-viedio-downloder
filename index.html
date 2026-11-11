@@ -239,6 +239,16 @@
             font-size: 0.95rem;
         }
 
+        /* Download Progress UI */
+        #progressContainer {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
         /* Result Section */
         .result-card {
             display: none;
@@ -344,6 +354,8 @@
             text-decoration: none;
             font-size: 0.95rem;
             transition: all 0.2s;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-no-wm {
@@ -466,6 +478,17 @@
             <p style="color: var(--text-muted);">Fetching video details...</p>
         </div>
 
+        <!-- Download Progress UI (MB & Progress Bar) -->
+        <div id="progressContainer">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                <span id="progressText">Downloading... 0%</span>
+                <span id="mbDownloaded">0 MB / 0 MB</span>
+            </div>
+            <div style="width: 100%; background: var(--card-border); height: 8px; border-radius: 4px; overflow: hidden;">
+                <div id="progressBar" style="width: 0%; background: var(--primary-yellow); height: 100%; transition: width 0.1s ease;"></div>
+            </div>
+        </div>
+
         <!-- Result Display Card -->
         <div class="result-card" id="resultCard">
             <div class="video-preview">
@@ -494,9 +517,9 @@
                 </div>
 
                 <div class="action-buttons">
-                    <a id="downloadNoWm" href="#" class="btn-action btn-no-wm" target="_blank" download>
+                    <button id="downloadNoWmBtn" class="btn-action btn-no-wm">
                         <i class="fa-solid fa-file-video"></i> Download MP4 (No Watermark)
-                    </a>
+                    </button>
                     <a id="downloadAudio" href="#" class="btn-action btn-audio" target="_blank" download>
                         <i class="fa-solid fa-music"></i> Download Audio (MP3)
                     </a>
@@ -504,7 +527,7 @@
             </div>
         </div>
 
-        <!-- SEO Content Section: Essential for Google Bots to Read Text -->
+        <!-- SEO Content Section -->
         <div class="info-section">
             <h2>How to Download TikTok Videos Without Watermark?</h2>
             <p style="color: var(--text-muted); text-align: center; max-width: 700px; margin: 0 auto; line-height: 1.6;">
@@ -537,14 +560,18 @@
 
     <!-- Logic JavaScript -->
     <script>
+        let currentVideoUrl = '';
+
         async function fetchTikTokData() {
             const urlInput = document.getElementById('tiktokUrl').value.trim();
             const errorMsg = document.getElementById('errorMsg');
             const loadingSpinner = document.getElementById('loadingSpinner');
             const resultCard = document.getElementById('resultCard');
+            const progressContainer = document.getElementById('progressContainer');
 
             errorMsg.style.display = 'none';
             resultCard.style.display = 'none';
+            progressContainer.style.display = 'none';
 
             if (!urlInput || (!urlInput.includes('tiktok.com') && !urlInput.includes('vt.tiktok.com'))) {
                 showError('Please paste a valid TikTok link (e.g. https://www.tiktok.com/@user/video/1234...)');
@@ -562,6 +589,7 @@
 
                 if (result.code === 0 && result.data) {
                     const data = result.data;
+                    currentVideoUrl = data.play; // Store direct MP4 URL
 
                     document.getElementById('videoCover').src = data.cover || data.origin_cover;
                     document.getElementById('authorAvatar').src = data.author.avatar;
@@ -572,7 +600,6 @@
                     document.getElementById('viewsCount').innerText = formatNumber(data.play_count || 0);
                     document.getElementById('likesCount').innerText = formatNumber(data.digg_count || 0);
 
-                    document.getElementById('downloadNoWm').href = data.play;
                     document.getElementById('downloadAudio').href = data.music;
 
                     resultCard.style.display = window.innerWidth >= 768 ? 'grid' : 'flex';
@@ -585,6 +612,80 @@
                 showError('Network error or API limit reached. Please check your connection and try again.');
             }
         }
+
+        // Handle Download with Progress Bar and Fallback
+        document.getElementById('downloadNoWmBtn').addEventListener('click', async function () {
+            if (!currentVideoUrl) return;
+
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const mbDownloaded = document.getElementById('mbDownloaded');
+
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            progressText.innerText = 'Connecting... 0%';
+            mbDownloaded.innerText = '0 MB / 0 MB';
+
+            try {
+                const response = await fetch(currentVideoUrl);
+                if (!response.ok) throw new Error('CORS or Network error');
+
+                const contentLength = response.headers.get('content-length');
+                const totalBytes = contentLength ? parseInt(contentLength, 10) : 0;
+                
+                const reader = response.body.getReader();
+                let receivedBytes = 0;
+                let chunks = [];
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    chunks.push(value);
+                    receivedBytes += value.length;
+
+                    const receivedMB = (receivedBytes / (1024 * 1024)).toFixed(2);
+                    const totalMB = totalBytes ? (totalBytes / (1024 * 1024)).toFixed(2) : '??';
+
+                    mbDownloaded.innerText = `${receivedMB} MB / ${totalMB} MB`;
+
+                    if (totalBytes > 0) {
+                        const percent = Math.round((receivedBytes / totalBytes) * 100);
+                        progressBar.style.width = percent + '%';
+                        progressText.innerText = `Downloading... ${percent}%`;
+                    } else {
+                        progressText.innerText = `Downloading... ${receivedMB} MB`;
+                    }
+                }
+
+                // Create blob and trigger automatic download
+                const blob = new Blob(chunks);
+                const blobUrl = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = 'tiktok_video_no_watermark.mp4';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                
+                window.URL.revokeObjectURL(blobUrl);
+                progressText.innerText = 'Download Complete!';
+                
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                }, 3000);
+
+            } catch (error) {
+                // Fallback: If CORS blocks stream, open in a new tab directly
+                progressText.innerText = 'Opening in new tab due to network restriction...';
+                window.open(currentVideoUrl, '_blank');
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                }, 3000);
+            }
+        });
 
         function showError(msg) {
             const errorMsg = document.getElementById('errorMsg');
